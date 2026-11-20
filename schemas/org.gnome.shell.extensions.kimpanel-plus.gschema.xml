@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schemalist>
+  <schema path="/org/gnome/shell/extensions/kimpanel-plus/" id="org.gnome.shell.extensions.kimpanel-plus">
+    <key type="b" name="vertical">
+        <default>false</default>
+        <summary>vertical candidate text</summary>
+        <description>whether to show candidate text vertically in panel.</description>
+    </key>
+    <key type="s" name="font">
+        <default>'Sans 11'</default>
+        <summary>Font of input and candidate text panel</summary>
+        <description>Set font of kimpanel input and candidate text.</description>
+    </key>
+    <key type="s" name="theme">
+        <choices>
+            <choice value="default"/>
+            <choice value="pink"/>
+            <choice value="blue"/>
+        </choices>
+        <default>'default'</default>
+        <summary>Theme of the candidate panel</summary>
+        <description>Candidate highlight color: default follows the GNOME Shell theme, pink uses Catppuccin Macchiato Pink, and blue uses Catppuccin Mocha Blue.</description>
+    </key>
+    <key type="s" name="panel-background">
+        <default>''</default>
+        <summary>Panel background color</summary>
+        <description>Hexadecimal RGB color. Leave empty to use the selected theme color.</description>
+    </key>
+    <key type="s" name="panel-text">
+        <default>''</default>
+        <summary>Panel text color</summary>
+        <description>Hexadecimal RGB color. Leave empty to use the selected theme color.</description>
+    </key>
+    <key type="s" name="highlight-background">
+        <default>''</default>
+        <summary>Candidate highlight background color</summary>
+        <description>Hexadecimal RGB color. Leave empty to use the selected theme color.</description>
+    </key>
+    <key type="s" name="highlight-text">
+        <default>''</default>
+        <summary>Candidate highlight text color</summary>
+        <description>Hexadecimal RGB color. Leave empty to use the selected theme color.</description>
+    </key>
+  </schema>
+</schemalist>

@@ -40,3 +40,19 @@
 .icon-disable {
   color:rgba(150,150,150,0.5);
 }
+
+/* Catppuccin Macchiato Pink candidate highlight. */
+.kimpanel-theme-pink .kimpanel-candidate-item:active,
+.kimpanel-theme-pink .kimpanel-candidate-item:active:hover,
+.kimpanel-theme-pink .kimpanel-candidate-item:active:focus {
+  background-color: #f5bde6;
+  color: #24273a;
+}
+
+/* Catppuccin Mocha Blue candidate highlight. */
+.kimpanel-theme-blue .kimpanel-candidate-item:active,
+.kimpanel-theme-blue .kimpanel-candidate-item:active:hover,
+.kimpanel-theme-blue .kimpanel-candidate-item:active:focus {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+}

@@ -9,6 +9,7 @@ import {InputPanel} from './panel.js';
 import {KimIndicator} from './indicator.js';
 import {KimMenu} from './menu.js';
 import * as Lib from './lib.js';
+import {CUSTOM_COLOR_KEYS, isCustomColor} from './themes.js';
 
 const KimpanelIface = '<node> \
 <interface name="org.kde.impanel"> \
@@ -104,6 +105,15 @@ class Kimpanel extends GObject.Object {
             'changed::font',
             () => this.inputpanel.updateFont(this.getTextStyle()));
 
+        this.themeSignal = this.settings.connect(
+            'changed::theme',
+            () => this.inputpanel.setTheme(this.getTheme()));
+
+        this.colorSignals = CUSTOM_COLOR_KEYS.map(key => this.settings.connect(
+            `changed::${key}`, () => this._updateCustomColors()));
+        // Read the keys after connecting so GSettings watches external changes.
+        this._updateCustomColors();
+
         this.addToShell();
         this.dbusSignal = this.conn.signal_subscribe(
             null, "org.kde.kimpanel.inputmethod", null, null, null,
@@ -170,7 +180,7 @@ class Kimpanel extends GObject.Object {
             this.table = value[1];
             break;
         case 'UpdateLookupTableCursor':
-            if (this.pos != value[0])
+            if (this.cursor !== value[0])
                 changed = true;
             this.cursor = value[0];
             break;
@@ -255,6 +265,18 @@ class Kimpanel extends GObject.Object {
 
     getTextStyle() { return Lib.getTextStyle(this.settings); }
 
+    getTheme() { return this.settings.get_string('theme'); }
+
+    _updateCustomColors() {
+        const colors = {};
+        for (const key of CUSTOM_COLOR_KEYS) {
+            const color = this.settings.get_string(key);
+            if (isCustomColor(color))
+                colors[key] = color;
+        }
+        this.inputpanel.updateColors(colors);
+    }
+
     destroy() {
         this._isDestroyed = true;
         this.resetData();
@@ -266,6 +288,9 @@ class Kimpanel extends GObject.Object {
         }
         this.settings.disconnect(this.verticalSignal);
         this.settings.disconnect(this.fontSignal);
+        this.settings.disconnect(this.themeSignal);
+        for (const id of this.colorSignals)
+            this.settings.disconnect(id);
         this.settings = null;
         this.conn.signal_unsubscribe(this.dbusSignal);
         this.conn = null;

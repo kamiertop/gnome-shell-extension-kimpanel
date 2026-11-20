@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2023-08-26 20:24+0000\n"
+"POT-Creation-Date: 2026-09-23 22:52+0800\n"
 "PO-Revision-Date: 2021-03-17 03:56+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2021\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/fcitx/teams/12005/"
@@ -22,10 +22,91 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+#: indicator.js:41
+msgid "Settings"
+msgstr "設定"
+
 #: indicator.js:45
 msgid "Reload Configuration"
 msgstr "重新載入設定"
 
-#: indicator.js:41
-msgid "Settings"
-msgstr "設定"
+#: prefs.js:38
+msgid "Appearance"
+msgstr ""
+
+#: prefs.js:42
+msgid "Theme"
+msgstr ""
+
+#: prefs.js:45
+msgid "Default (follow system style)"
+msgstr "預設（跟隨系統樣式）"
+
+#: prefs.js:46
+msgid "Pink"
+msgstr "粉紅色"
+
+#: prefs.js:47
+msgid "Blue"
+msgstr "藍色"
+
+#: prefs.js:66 prefs.js:184
+#, fuzzy
+msgid "Font"
+msgstr "字型大小"
+
+#: prefs.js:75
+msgid "Candidate List"
+msgstr ""
+
+#: prefs.js:83
+msgid "Vertical List"
+msgstr ""
+
+#: prefs.js:91
+msgid "Custom Style"
+msgstr "自訂樣式"
+
+#: prefs.js:96
+msgid "Panel Background"
+msgstr "面板背景"
+
+#: prefs.js:97
+msgid "Text Color"
+msgstr "文字顏色"
+
+#: prefs.js:98
+msgid "Highlight Background"
+msgstr "醒目提示背景"
+
+#: prefs.js:99
+msgid "Highlight Text"
+msgstr "醒目提示文字"
+
+#: prefs.js:134
+msgid "Restore Default"
+msgstr "恢復預設"
+
+#: prefs.js:150
+msgid "Choose Color…"
+msgstr "選擇顏色…"
+
+#: prefs.js:151
+msgid "Use Theme Color"
+msgstr "使用主題顏色"
+
+#: prefs.js:191
+msgid "Cancel"
+msgstr ""
+
+#: prefs.js:192
+msgid "Apply"
+msgstr ""
+
+#: prefs.js:215
+msgid "Search fonts"
+msgstr "搜尋字型"
+
+#: prefs.js:261
+msgid "Font Size"
+msgstr "字型大小"

@@ -31,6 +31,9 @@ export class InputPanel extends GObject.Object {
         this.panel.add_style_class_name('minwidth-zero');
         this.panel.add_style_class_name('kimpanel-popup-boxpointer');
 
+        this.theme = '';
+        this.setTheme(this.kimpanel.getTheme());
+
         this._cursor = new St.Label({});
 
         this.layout = new St.BoxLayout({
@@ -49,6 +52,8 @@ export class InputPanel extends GObject.Object {
         this.layout.add_child(this.upperLayout);
 
         this.text_style = this.kimpanel.getTextStyle();
+        this.colors = {};
+        this.lookupTableCursor = -1;
         this.auxText = createLabel({
             style_class : 'kimpanel-label',
             style : this.text_style,
@@ -161,28 +166,55 @@ export class InputPanel extends GObject.Object {
         }
     }
     setLookupTableCursor(cursor) {
-        let labelLen = this.lookupTableLayout.get_children().length;
-        for (var i = 0; i < labelLen; i++) {
-            if (i == cursor)
-                this.lookupTableLayout.get_children()[i].add_style_pseudo_class(
-                    'active');
+        this.lookupTableCursor = cursor;
+        const items = this.lookupTableLayout.get_children();
+        for (const [index, item] of items.entries()) {
+            const selected = index === cursor;
+            if (selected)
+                item.add_style_pseudo_class('active');
             else
-                this.lookupTableLayout.get_children()[i]
-                    .remove_style_pseudo_class('active');
+                item.remove_style_pseudo_class('active');
+
+            let style = this.text_style;
+            const text = selected
+                ? this.colors['highlight-text']
+                : this.colors['panel-text'];
+            if (text)
+                style += `;color:${text}`;
+            if (selected && this.colors['highlight-background'])
+                style += `;background-color:${this.colors['highlight-background']}`;
+            item.set_style(style);
         }
     }
     setVertical(vertical) {
         this.lookupTableLayout.orientation = vertical ?
             Clutter.Orientation.VERTICAL : Clutter.Orientation.HORIZONTAL;
     }
+    setTheme(theme) {
+        if (theme === this.theme)
+            return;
+        if (this.theme)
+            this.panel.remove_style_class_name('kimpanel-theme-' + this.theme);
+        this.theme = theme;
+        if (theme !== 'default')
+            this.panel.add_style_class_name('kimpanel-theme-' + theme);
+    }
     updateFont(textStyle) {
         this.text_style = textStyle;
-        this.auxText.set_style(this.text_style);
-        this.preeditText.set_style(this.text_style);
-        let lookupTable = this.lookupTableLayout.get_children();
-        for (let i = 0; i < lookupTable.length; i++)
-            lookupTable[i].set_style(this.text_style);
+        const color = this.colors['panel-text'];
+        const style = color ? `${textStyle};color:${color}` : textStyle;
+        this.auxText.set_style(style);
+        this.preeditText.set_style(style);
+        this.setLookupTableCursor(this.lookupTableCursor);
     }
+
+    updateColors(colors) {
+        this.colors = colors;
+        const background = colors['panel-background'];
+        this.layout.set_style(background ? `background-color:${background}` : null);
+        this.updateFont(this.text_style);
+    }
+
     hideAux() {
         if (this.auxText.visible)
             this.auxText.hide();
